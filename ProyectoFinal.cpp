@@ -45,6 +45,12 @@ float rotacionDado;
 float rotacion;
 float rotacionDadoOffset;
 int numGiros;
+//Variables para la ilumincaión
+bool luzdia;
+bool luznoche;
+float luzgradual = 1.0;
+bool skydia = false;
+bool skynoche = false;
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -94,6 +100,7 @@ Model naveFuturama;
 Model maquinaSoda;
 
 Skybox skybox;
+Skybox skyboxnoche;
 
 //materiales
 Material Material_brillante;
@@ -373,6 +380,9 @@ int main()
 	maquinaSoda = Model();
 	maquinaSoda.LoadModel("Models/SodaMachine.obj");
 
+	//Función para atardecer 
+
+	
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_rt.tga");
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_lf.tga");
@@ -380,17 +390,27 @@ int main()
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_up.tga");
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_ft.tga");
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_bk.tga");
-
+	
 	skybox = Skybox(skyboxFaces);
+
+	std::vector<std::string> skyboxFaces2;
+	skyboxFaces2.push_back("Textures/Skybox/ciudad2_noche_rt.tga");
+	skyboxFaces2.push_back("Textures/Skybox/ciudad2_noche_lf.tga");
+	skyboxFaces2.push_back("Textures/Skybox/ciudad2_noche_dn.tga");
+	skyboxFaces2.push_back("Textures/Skybox/ciudad2_noche_up.tga");
+	skyboxFaces2.push_back("Textures/Skybox/ciudad2_noche_ft.tga");
+	skyboxFaces2.push_back("Textures/Skybox/ciudad2_noche_bk.tga");
+
+	skyboxnoche = Skybox(skyboxFaces2);
 
 	Material_brillante = Material(0.3f, 256);
 	Material_opaco = Material(4.0f, 4);
 
 
 	//luz direccional, sólo 1 y siempre debe de existir
-	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
+	//mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+	//	luzgradual, luzgradual,
+	//	0.0f, 0.0f, -1.0f);
 	//contador de luces puntuales
 
 	unsigned int pointLightCount = 0;
@@ -435,7 +455,9 @@ int main()
 	rotacion = 0.0f;
 	rotacionDadoOffset = 0.1f;
 	numGiros = 0;
-
+	luzdia = true;
+	luznoche = false;
+	
 	
 
 	////Loop mientras no se cierra la ventana
@@ -445,6 +467,68 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS; //Maximo 60FPS
 		lastTime = now;
+
+		//luz{
+
+		if (luzdia) {
+			
+			if (luzgradual <= 1.0 and luzgradual > 0.0 and luznoche == false)
+			{	
+				
+				luzgradual -= 0.001;
+				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
+				shaderList[0].UseShader();
+				uniformModel = shaderList[0].GetModelLocation();
+				uniformProjection = shaderList[0].GetProjectionLocation();
+				uniformView = shaderList[0].GetViewLocation();
+				uniformEyePosition = shaderList[0].GetEyePositionLocation();
+				uniformColor = shaderList[0].getColorLocation();
+				
+			}if(luzgradual < 0.0)
+			{
+				luznoche = true;
+				luzgradual = 0.0;
+				
+				
+			}
+			if (luzgradual >= 0.0 and luzgradual < 1.0 and luznoche == true)
+			{
+				
+				luzgradual += 0.001;
+				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				skyboxnoche.DrawSkybox(camera.calculateViewMatrix(), projection);
+				shaderList[0].UseShader();
+				uniformModel = shaderList[0].GetModelLocation();
+				uniformProjection = shaderList[0].GetProjectionLocation();
+				uniformView = shaderList[0].GetViewLocation();
+				uniformEyePosition = shaderList[0].GetEyePositionLocation();
+				uniformColor = shaderList[0].getColorLocation();
+			}
+			if(luzgradual > 1.0)
+			{
+				luznoche = false;
+				luzgradual = 1.0;
+				
+				
+			}
+			
+			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+				luzgradual, luzgradual,
+				0.0f, 0.0f, -1.0f);
+			
+			//if (luzgradual >= 0.0 and luzgradual < 1)
+			//{
+			//	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+			//		luzgradual, luzgradual,
+			//		0.0f, 0.0f, -1.0f);
+			//	luzgradual += luzgradual + 0.5;
+			//}
+
+			
+		}
 
 		//Movimiento coche
 		if (avanzaX) {
@@ -498,15 +582,15 @@ int main()
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		// Clear the window
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
-		shaderList[0].UseShader();
-		uniformModel = shaderList[0].GetModelLocation();
-		uniformProjection = shaderList[0].GetProjectionLocation();
-		uniformView = shaderList[0].GetViewLocation();
-		uniformEyePosition = shaderList[0].GetEyePositionLocation();
-		uniformColor = shaderList[0].getColorLocation();
+		//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
+		//shaderList[0].UseShader();
+		//uniformModel = shaderList[0].GetModelLocation();
+		//uniformProjection = shaderList[0].GetProjectionLocation();
+		//uniformView = shaderList[0].GetViewLocation();
+		//uniformEyePosition = shaderList[0].GetEyePositionLocation();
+		//uniformColor = shaderList[0].getColorLocation();
 		
 		//información en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
