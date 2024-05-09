@@ -1049,8 +1049,8 @@ int main()
 		//Taichi
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-200.0f, 0.0f, -150.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(180.0f, 0.0f, 120.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Taichi.RenderModel();
