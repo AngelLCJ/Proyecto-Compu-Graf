@@ -40,6 +40,15 @@ Texture digiEggTexture;
 
 //#######################		MODELOS
 
+//Ambientación
+Model arbol;
+Model bancaPicnic;
+Model baseBici;
+Model carreta;
+Model kiosko;
+Model lamparaPoste;
+Model piedras;
+Model triciclo;
 
 //ALAMEDA
 Model BaseAlamedaCentral;
@@ -230,6 +239,55 @@ int main()
 
 	//-------------------------------------------------------MODELOS 
 	
+	//------------------------------------------------------- AMBIENTACIÓN
+
+	//Arbol
+
+	arbol = Model();
+	arbol.LoadModel("Models/Arbol.obj");
+
+	//Banca Picnic
+	
+	bancaPicnic = Model();
+	bancaPicnic.LoadModel("Models/BancaPicnic.obj");
+	
+	//Base Bici
+	
+	baseBici = Model();
+	baseBici.LoadModel("Models/BaseBici.obj");
+	
+	//Carreta
+	
+	carreta = Model();
+	carreta.LoadModel("Models/Carreta.obj");
+	
+	//Kiosko
+	
+	kiosko = Model();
+	kiosko.LoadModel("Models/KioskoC.obj");
+	
+	//Lampara Poste
+	
+	lamparaPoste = Model();
+	lamparaPoste.LoadModel("Models/LamparaPoste.obj");
+	
+	//Piedras
+
+	piedras = Model();
+	piedras.LoadModel("Models/Piedras.obj");
+	
+	//Triciclo
+	
+	triciclo = Model();
+	triciclo.LoadModel("Models/Triciclo.obj");
+	
+	//Banca
+	
+	
+	//Bote basura
+
+
+
 	//ALAMEDA
 
 	BaseAlamedaCentral = Model();
@@ -395,31 +453,30 @@ int main()
 
 		//_________________________________UNIVERSO BATMAN___________________________________
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -150.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -100.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		batman.RenderModel();
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-325.0f, 0.0f, -300.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::translate(model, glm::vec3(-130.0f, 0.0f, -170.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		mansionBatman.RenderModel();
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-325.0f, 0.0f, 100.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::translate(model, glm::vec3(-165.0f, 0.0f, -100.0f));
+		model = glm::rotate(model, 145 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		policiaCarro.RenderModel();
 
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, 100.0f));
+		model = glm::translate(model, glm::vec3(-145.0f, 0.0f, -120.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		poliVan.RenderModel();
 
