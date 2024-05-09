@@ -488,8 +488,332 @@ int main()
 		//digiEgg
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-150.0f, 0.0f, -150.0f));
+		model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 350.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-40.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-80.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-120.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-140.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-160.0f, 0.0f, 350.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 325.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-40.0f, 0.0f, 325.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 325.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-80.0f, 0.0f, 325.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 325.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-120.0f, 0.0f, 325.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 300.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-40.0f, 0.0f, 300.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 300.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-80.0f, 0.0f, 300.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 300.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 275.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-40.0f, 0.0f, 275.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 275.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-180.0f, 0.0f, 325.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-180.0f, 0.0f, 300.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-180.0f, 0.0f, 275.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-180.0f, 0.0f, 250.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-180.0f, 0.0f, 225.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-160.0f, 0.0f, 300.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-160.0f, 0.0f, 275.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-160.0f, 0.0f, 250.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-160.0f, 0.0f, 225.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		//--
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-140.0f, 0.0f, 300.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-140.0f, 0.0f, 275.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-140.0f, 0.0f, 250.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-140.0f, 0.0f, 225.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+
+		//--
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-120.0f, 0.0f, 275.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 290 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-120.0f, 0.0f, 250.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 290 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-120.0f, 0.0f, 225.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 290 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+
+		//--
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 250.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 190 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 225.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 190 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+
+		//--
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-80.0f, 0.0f, 250.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		digiEgg.RenderModel();
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-80.0f, 0.0f, 225.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		digiEgg.RenderModel();
