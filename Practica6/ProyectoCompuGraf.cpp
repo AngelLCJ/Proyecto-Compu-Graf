@@ -1,4 +1,3 @@
-//para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <stdio.h>
