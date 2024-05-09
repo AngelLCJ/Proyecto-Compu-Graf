@@ -26,5 +26,5 @@ newmtl mat_0_farm_build_07_tile_jpg
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka farm_build_07.jpg
-	map_Kd farm_build_07.jpg
+	map_Ka farm_build_07.tga
+	map_Kd farm_build_07.tga

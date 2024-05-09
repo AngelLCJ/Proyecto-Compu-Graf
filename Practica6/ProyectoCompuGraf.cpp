@@ -229,8 +229,12 @@ int main()
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.3f, 0.5f);
 
 
-	casaDigimonTexture = Texture("Textures/farm_build_07.jpg");
+
+
+	casaDigimonTexture = Texture("Textures/farm_build_07.tga");
 	casaDigimonTexture.LoadTextureA();
+	
+
 
 	//-------------------------------------------------------TEXTURA DIGIMON
 
@@ -474,8 +478,10 @@ int main()
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		casaDigimon.RenderModel();
-
+		glDisable(GL_BLEND);
 		//Veemon
 
 		model = modelaux;
