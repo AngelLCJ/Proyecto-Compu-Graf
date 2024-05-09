@@ -470,7 +470,7 @@ int main()
 			if (luzgradual <= 1.0 and luzgradual > 0.0 and luznoche == false)
 			{	
 				
-				luzgradual -= 0.001;
+				luzgradual -= 0.0005;
 				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
@@ -481,17 +481,17 @@ int main()
 				uniformEyePosition = shaderList[0].GetEyePositionLocation();
 				uniformColor = shaderList[0].getColorLocation();
 				
-			}if(luzgradual < 0.0)
+			}if(luzgradual < 0.2)
 			{
 				luznoche = true;
-				luzgradual = 0.0;
+				luzgradual = 0.2;
 				
 				
 			}
-			if (luzgradual >= 0.0 and luzgradual < 1.0 and luznoche == true)
+			if (luzgradual >= 0.2 and luzgradual < 1.0 and luznoche == true)
 			{
 				
-				luzgradual += 0.001;
+				luzgradual += 0.0005;
 				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				skyboxnoche.DrawSkybox(camera.calculateViewMatrix(), projection);
