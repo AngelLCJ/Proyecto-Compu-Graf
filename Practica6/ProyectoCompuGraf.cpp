@@ -473,9 +473,10 @@ int main()
 		// Casa Digi
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(100.0f, 0.0f, 150.0f));
+		model = glm::translate(model, glm::vec3(125.0f, -3.0f, 300.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::rotate(model, 235 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 30.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -484,7 +485,7 @@ int main()
 		//Veemon
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -150.0f));
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 350.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
