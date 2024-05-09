@@ -9,11 +9,19 @@
 #include <glew.h>
 #include <glfw3.h>
 
+
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 //para probar el importer
 //#include<assimp/Importer.hpp>
+
+//para iluminación
+#include "CommonValues.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
+#include "Material.h"
 
 #include "Window.h"
 #include "Mesh.h"
@@ -89,6 +97,12 @@ Model maquinaSoda;
 
 
 Skybox skybox;
+
+// luz direccional
+DirectionalLight mainLight;
+//para declarar varias luces de tipo pointlight
+PointLight pointLights[MAX_POINT_LIGHTS];
+SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
@@ -374,11 +388,25 @@ int main()
 
 	skybox = Skybox(skyboxFaces);
 
+	//luz direccional, sólo 1 y siempre debe de existir
+	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+		0.3f, 0.3f,
+		0.0f, 0.0f, -1.0f);
+	//contador de luces puntuales
+
+	unsigned int pointLightCount = 0;
+	//Declaración de primer luz puntual
+	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.5f, 0.0f,
+		0.3f, 0.2f, 0.1f);
+	pointLightCount++;
+
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-	
+
 	glm::mat4 model(1.0);
 	glm::mat4 modelaux(1.0);
 	glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -457,6 +485,14 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+
+		////información en el shader de intensidad especular y brillo
+		//uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
+		//uniformShininess = shaderList[0].GetShininessLocation();
+
+		////información al shader de fuentes de iluminación
+		//shaderList[0].SetDirectionalLight(&mainLight);
+		//shaderList[0].SetPointLights(pointLights, pointLightCount);
 
 		color = glm::vec3(1.0f, 1.0f, 1.0f);//color blanco, multiplica a la información de color de la textura
 
