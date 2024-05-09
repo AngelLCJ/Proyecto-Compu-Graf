@@ -459,7 +459,6 @@ int main()
 	luzdia = true;
 	luznoche = false;
 	
-	
 
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
