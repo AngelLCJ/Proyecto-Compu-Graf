@@ -299,7 +299,7 @@ int main()
 	Exveemon.LoadModel("Models/Exveemon.dae");
 
 	casaDigimon = Model();
-	casaDigimon.LoadModel("CasaDigimon/casaDigimon.obj");
+	casaDigimon.LoadModel("Models/casaDigimon.obj");
 
 	veemon = Model();
 	veemon.LoadModel("Models/veemon.obj");
