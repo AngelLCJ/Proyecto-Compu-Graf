@@ -42,6 +42,11 @@ bool avanzaX; //indica si avanza o esta detenido el coche
 bool avanzaZ;
 float rotacion;
 int numGiros;
+
+//evolucion
+bool transformacion = true;
+int tiempo = 0;
+
 //Variables para la ilumincaión
 bool luzdia;
 bool luznoche;
@@ -618,6 +623,66 @@ int main()
 		//model = glm::mat4(1.0);
 		// Casa Digi
 
+		//EVOULCIÓN//
+
+		if (transformacion)
+		{
+			
+			model = modelaux;
+			model = glm::translate(model, glm::vec3(175.0f, 0.0f, 90.0f));
+			model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			veemon.RenderModel();
+			glDisable(GL_BLEND);
+			
+			tiempo += 1;
+
+			
+			
+		}
+		if (tiempo >= 100 and tiempo < 200)
+		{
+			model = modelaux;
+			model = glm::translate(model, glm::vec3(175.0f, 0.0f, 90.0f));
+			model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			veemon.RenderModel();
+			
+
+			transformacion = false;
+
+			tiempo += 1;
+		}
+
+		if (tiempo == 200)
+		{
+			transformacion = true;
+			tiempo = 1;
+		}
+		
+
+		
+		//if (tiempo > 0 and tiempo <= 10 and transformacion == false)
+		//{
+		//	model = modelaux;
+		//	model = glm::translate(model, glm::vec3(175.0f, 0.0f, 90.0f));
+		//	model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//	//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		//	model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		//	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//	veemon.RenderModel();
+		//	tiempo -= 0.01;
+		//
+		//	if (tiempo <= 0)
+		//	{
+		//		transformacion = true;
+		//		tiempo = 0.0;
+		//	}
+		//}
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(125.0f, -3.0f, 300.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -630,13 +695,7 @@ int main()
 		glDisable(GL_BLEND);
 		//Veemon
 
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 350.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		veemon.RenderModel();
-
+		
 		//digiEgg
 
 		model = modelaux;
