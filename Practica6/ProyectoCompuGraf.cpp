@@ -59,8 +59,12 @@ Model poliVan;
 Model batimovil;
 Model batiSenal;
 
-
-
+//UNIVERSO FUTURAMA
+Model bender;
+Model casaFuturama;
+Model tiendaFuturama;
+Model naveFuturama;
+Model maquinaSoda;
 
 
 Skybox skybox;
@@ -269,6 +273,22 @@ int main()
 	batiSenal = Model();
 	batiSenal.LoadModel("Models/batiSenal.obj");
 
+	//-------------------------------------------------------Universo futurama
+	bender = Model();
+	bender.LoadModel("Models/bender.obj");
+
+	casaFuturama = Model();
+	casaFuturama.LoadModel("Models/FuturamaCasaText.obj");
+
+	tiendaFuturama = Model();
+	tiendaFuturama.LoadModel("Models/tiendafuturama.obj");
+
+	naveFuturama = Model();
+	naveFuturama.LoadModel("Models/Navefuturama.obj");
+
+	maquinaSoda = Model();
+	maquinaSoda.LoadModel("Models/SodaMachine.obj");
+
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_rt.tga");
@@ -424,6 +444,46 @@ int main()
 		model = glm::scale(model, glm::vec3(20.0f, 0.5f, 20.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BaseAlamedaCentral.RenderModel();
+
+		//_________________________________UNIVERSO FUTURAMA___________________________________
+		//Bender
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		bender.RenderModel();
+
+		//Casa
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		casaFuturama.RenderModel();
+
+		//tienda
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tiendaFuturama.RenderModel();
+
+		//nave
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -15.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		naveFuturama.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -30.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		maquinaSoda.RenderModel();
 
 		glUseProgram(0);
 		//hola
