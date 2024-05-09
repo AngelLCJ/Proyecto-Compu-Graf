@@ -40,17 +40,12 @@ float rotllanta;
 float rotllantaOffset; //bandera para detener el carro 
 bool avanzaX; //indica si avanza o esta detenido el coche
 bool avanzaZ;
-bool giroDado;
-float rotacionDado;
 float rotacion;
-float rotacionDadoOffset;
 int numGiros;
 //Variables para la ilumincaión
 bool luzdia;
 bool luznoche;
 float luzgradual = 1.0;
-bool skydia = false;
-bool skynoche = false;
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -453,7 +448,7 @@ int main()
 	avanzaX = true;
 	avanzaZ = false;
 	rotacion = 0.0f;
-	rotacionDadoOffset = 0.1f;
+
 	numGiros = 0;
 	luzdia = true;
 	luznoche = false;
@@ -567,12 +562,6 @@ int main()
 		if (numGiros >= 3) {
 			avanzaX = false;
 			avanzaZ = false;
-		}
-
-		//Movimiento dado
-		if (giroDado) {
-			rotacionDado -= rotacionDadoOffset * deltaTime;
-			rotacionDado += 1;
 		}
 	
 
