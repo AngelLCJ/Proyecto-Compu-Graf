@@ -27,6 +27,19 @@
 
 const float toRadians = 3.14159265f / 180.0f;
 
+//Variables de animación
+float movCocheX;
+float movCocheZ;
+float movOffset; //bandera para detener el carro 
+float rotllanta;
+float rotllantaOffset; //bandera para detener el carro 
+bool avanzaX; //indica si avanza o esta detenido el coche
+bool avanzaZ;
+float rotacionDado;
+float rotacion;
+float rotacionDadoOffset;
+int numGiros;
+
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -366,6 +379,16 @@ int main()
 	glm::mat4 model(1.0);
 	glm::mat4 modelaux(1.0);
 	glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	movCocheX = -40.0f;
+	movCocheZ = -130.0f;
+	movOffset = 0.3f; //indica que esta iniciado el movimiento
+	avanzaX = true;
+	avanzaZ = false;
+	rotacion = 0.0f;
+	rotacionDadoOffset = 0.1f;
+	numGiros = 0;
+
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -373,6 +396,46 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
+
+		//Movimiento coche
+		if (avanzaX) {
+			if (movCocheX > -130.0f) {
+				movCocheX -= movOffset * deltaTime;
+				rotacion = -90;
+			}
+			else {
+				avanzaX = false;
+				avanzaZ = true;
+				numGiros++;
+			}
+		}
+		else if (avanzaZ) {
+			if (movCocheZ < -0.4f) {
+				movCocheZ += movOffset * deltaTime;
+				rotacion = 0;
+			}
+			else {
+				avanzaZ = false;
+				avanzaX = true;
+				numGiros++;
+			}
+		}
+		else {
+			if (movCocheX < -55.0f) {
+				movCocheX += movOffset * deltaTime;
+				rotacion = 90;
+			}
+			else {
+				avanzaX = true;
+				numGiros++;
+			}
+		}
+
+		if (numGiros >= 3) {
+			avanzaX = false;
+			avanzaZ = false;
+		}
+
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
@@ -482,8 +545,9 @@ int main()
 
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-40.0f, 0.0f, -130.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::translate(model, glm::vec3(-40.0f, 0.0f, -130.0f));
+		model = glm::translate(model, glm::vec3(movCocheX, 0.0f, movCocheZ));
+		model = glm::rotate(model, rotacion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		batimovil.RenderModel();
