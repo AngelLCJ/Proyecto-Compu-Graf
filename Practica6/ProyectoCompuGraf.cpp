@@ -380,8 +380,8 @@ int main()
 	glm::mat4 modelaux(1.0);
 	glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
-	movCocheX = -40.0f;
-	movCocheZ = -130.0f;
+	movCocheX = 13.0f;
+	movCocheZ = -120.0f;
 	movOffset = 0.3f; //indica que esta iniciado el movimiento
 	avanzaX = true;
 	avanzaZ = false;
@@ -399,7 +399,7 @@ int main()
 
 		//Movimiento coche
 		if (avanzaX) {
-			if (movCocheX > -130.0f) {
+			if (movCocheX > -100.0f) {
 				movCocheX -= movOffset * deltaTime;
 				rotacion = -90;
 			}
@@ -410,7 +410,7 @@ int main()
 			}
 		}
 		else if (avanzaZ) {
-			if (movCocheZ < -0.4f) {
+			if (movCocheZ < 0.6f) {
 				movCocheZ += movOffset * deltaTime;
 				rotacion = 0;
 			}
@@ -421,7 +421,7 @@ int main()
 			}
 		}
 		else {
-			if (movCocheX < -55.0f) {
+			if (movCocheX < -75.0f) {
 				movCocheX += movOffset * deltaTime;
 				rotacion = 90;
 			}
@@ -516,9 +516,9 @@ int main()
 
 		//_________________________________UNIVERSO BATMAN___________________________________
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -100.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::translate(model, glm::vec3(-35.0f, 0.0f, -40.0f));
+		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		batman.RenderModel();
 
@@ -553,11 +553,13 @@ int main()
 		batimovil.RenderModel();
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-200.0f, 0.0f, 100.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -228.0f));
+		model = glm::rotate(model, -25 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		batiSenal.RenderModel();
+
+		//_________________________________Ambientación___________________________________
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.0f, -0.6f, 0.0f));
