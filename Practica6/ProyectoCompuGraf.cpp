@@ -482,9 +482,9 @@ int main()
 
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-120.0f, 0.0f, -130.0f));
+		model = glm::translate(model, glm::vec3(-40.0f, 0.0f, -130.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		batimovil.RenderModel();
 
