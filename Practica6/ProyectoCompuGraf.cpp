@@ -333,7 +333,7 @@ int main()
 	batman.LoadModel("Models/batman_obj.obj");
 
 	mansionBatman = Model();
-	mansionBatman.LoadModel("Models/mansionBatman.obj");
+	mansionBatman.LoadModel("Models/mansionBatmanT.obj");
 	
 	policiaCarro = Model();
 	policiaCarro.LoadModel("Models/policiaCarro.obj");
@@ -855,7 +855,11 @@ int main()
 		model = glm::translate(model, glm::vec3(-130.0f, 0.0f, -170.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		mansionBatman.RenderModel();
+		glDisable(GL_BLEND);
+
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(-165.0f, 0.0f, -100.0f));
