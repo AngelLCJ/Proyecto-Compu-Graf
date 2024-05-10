@@ -604,7 +604,12 @@ int main()
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
-
+		if (mainWindow.getprendido()) {
+			shaderList[0].SetPointLights(pointLights, pointLightCount);
+		}
+		else {
+			shaderList[0].SetPointLights(pointLights, pointLightCount - 2);
+		}
 
 		glm::mat4 model(1.0);
 		glm::mat4 modelaux(1.0);
