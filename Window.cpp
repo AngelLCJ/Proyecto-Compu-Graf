@@ -40,7 +40,7 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "P09-317113888", NULL, NULL);
+	mainWindow = glfwCreateWindow(width, height, "Proyecto Final", NULL, NULL);
 
 	if (!mainWindow)
 	{
