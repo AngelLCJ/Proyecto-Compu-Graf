@@ -416,24 +416,17 @@ int main()
 
 	unsigned int pointLightCount = 0;
 	//Declaración de primer luz puntual
-	pointLights[0] = PointLight(1.0f, 0.0f, 1.0f,
+	pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
 		1.0f, 1.0f,
 		-6.0f, 1.5f, 1.5f,
 		0.3f, 0.2f, 0.1f);
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
-	//linterna
-	spotLights[0] = SpotLight(0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		5.0f);
-	spotLightCount++;
+	
 
 	//luz fija
-	spotLights[1] = SpotLight(0.0f, 0.0f, 0.0f,
+	spotLights[0] = SpotLight(0.0f, 0.0f, 0.0f,
 		0.0f, 0.0f,
 		5.0f, 10.0f, 0.0f,
 		0.0f, -5.0f, 0.0f,
@@ -448,7 +441,7 @@ int main()
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 	
-	movCocheX = 13.0f;
+	movCocheX = 3.0f;
 	movCocheZ = -120.0f;
 	movOffset = 0.3f; //indica que esta iniciado el movimiento
 	avanzaX = true;
@@ -532,7 +525,7 @@ int main()
 
 		//Movimiento coche
 		if (avanzaX) {
-			if (movCocheX > -50.0f) {
+			if (movCocheX > -10.0f) {
 				movCocheX -= movOffset * deltaTime; 
 				rotacion = -90; 
 			}
@@ -543,7 +536,7 @@ int main()
 			}
 		}
 		else if (avanzaZ) {
-			if (movCocheZ < 50.0f) {
+			if (movCocheZ < 0.0f) {
 				movCocheZ += movOffset * deltaTime; 
 				rotacion = 0; 
 			}
@@ -554,7 +547,7 @@ int main()
 			}
 		}
 		else {
-			if (movCocheX < 10.0f) {
+			if (movCocheX < -70.0f) {
 				movCocheX += movOffset * deltaTime; 
 				rotacion = 90; 
 			}
