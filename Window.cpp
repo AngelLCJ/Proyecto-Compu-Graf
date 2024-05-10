@@ -17,6 +17,8 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	mueveHeli = 1.0;
 	mueveLuz = 1.0;
 	prendido = true;
+	lucesCarro = false;
+
 	direccionCarro = -1.0f;
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -111,10 +113,12 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_Y)
 	{
 		theWindow-> muevex += 1.0;
+		theWindow->lucesCarro = false;
 	}
 	if (key == GLFW_KEY_U)
 	{
 		theWindow-> muevex -= 1.0;
+		theWindow->lucesCarro = true;
 	}
 
 
@@ -127,6 +131,48 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->mueveHeli -= 1.0;
 		theWindow->mueveLuz -= 1.0;
+	}
+
+
+	if (key == GLFW_KEY_F)
+	{
+		theWindow->anguloLlantasD -= 10;
+	}
+
+	if (key == GLFW_KEY_G)
+	{
+		theWindow->anguloLlantasD += 10;
+	}
+
+	if (key == GLFW_KEY_H)
+	{
+		theWindow->anguloLlantasT -= 10;
+	}
+
+	if (key == GLFW_KEY_J)
+	{
+		theWindow->anguloLlantasT += 10;
+	}
+
+	if (key == GLFW_KEY_K)
+	{
+		if (theWindow->anguloCofre > 50.0)
+		{
+		}
+		else
+		{
+			theWindow->anguloCofre += 10.0;
+		}
+	}
+	if (key == GLFW_KEY_L)
+	{
+		if (theWindow->anguloCofre <= 0)
+		{
+		}
+		else
+		{
+			theWindow->anguloCofre -= 10.0;
+		}
 	}
 
 

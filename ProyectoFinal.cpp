@@ -42,6 +42,10 @@ bool avanzaX; //indica si avanza o esta detenido el coche
 bool avanzaZ;
 float rotacion;
 int numGiros;
+//--
+float movCoche;
+
+bool avanza;
 
 //evolucion
 bool transformacion = true;
@@ -64,6 +68,10 @@ Texture veemonTexture;
 Texture digiEggTexture;
 
 //#######################		MODELOS
+
+//coche2
+Model Kitt_M;
+Model Llanta_M;
 
 //Ambientación
 Model arbol;
@@ -381,6 +389,11 @@ int main()
 	maquinaSoda = Model();
 	maquinaSoda.LoadModel("Models/SodaMachine.obj");
 
+	Kitt_M = Model();
+	Kitt_M.LoadModel("Models/kitt_optimizado.obj");
+	Llanta_M = Model();
+	Llanta_M.LoadModel("Models/llanta_optimizada.obj");
+
 	//Función para atardecer 
 
 	
@@ -455,6 +468,12 @@ int main()
 	avanzaZ = false;
 	rotacion = 0.0f;
 
+	//--
+	movCoche = 0.0f;
+	movOffset = 0.01f;
+	rotllanta = 0.0f;
+	rotllantaOffset = 10.0f;
+
 	numGiros = 0;
 	luzdia = true;
 	luznoche = false;
@@ -468,7 +487,17 @@ int main()
 		deltaTime += (now - lastTime) / limitFPS; //Maximo 60FPS
 		lastTime = now;
 
+		//--
+		if (movCoche < 30.0f)
+		{
+			movCoche -= movOffset * deltaTime;
+			//printf("avanza%f \n ",movCoche);
+		}
+		rotllanta += rotllantaOffset * deltaTime;
+
 		//luz{
+
+
 
 		if (luzdia) {
 			
@@ -622,6 +651,54 @@ int main()
 
 		//model = glm::mat4(1.0);
 		// Casa Digi
+
+		//coche2
+		//Instancia del coche 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(movCoche - 50.0f, 0.5f, -2.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Kitt_M.RenderModel();
+
+		//Llanta delantera izquierda
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(7.0f, -0.5f, 8.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		color = glm::vec3(0.5f, 0.5f, 0.5f);//llanta con color gris
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Llanta_M.RenderModel();
+
+		//Llanta trasera izquierda
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(15.5f, -0.5f, 8.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Llanta_M.RenderModel();
+
+		//Llanta delantera derecha
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(7.0f, -0.5f, 1.5f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, -rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Llanta_M.RenderModel();
+
+		//Llanta trasera derecha
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(15.5f, -0.5f, 1.5f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, -rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Llanta_M.RenderModel();
 
 		//EVOULCIÓN//
 

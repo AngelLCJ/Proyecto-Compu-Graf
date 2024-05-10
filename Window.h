@@ -9,6 +9,10 @@ public:
 	Window();
 	Window(GLint windowWidth, GLint windowHeight);
 	int Initialise();
+	GLboolean getlucesCarro() { return lucesCarro; }
+	GLfloat getanguloLlantasD() { return anguloLlantasD; }
+	GLfloat getanguloLlantasT() { return anguloLlantasT; }
+	GLfloat getanguloCofre() { return anguloCofre; }
 	GLfloat getBufferWidth() { return bufferWidth; }
 	GLfloat getBufferHeight() { return bufferHeight; }
 	GLfloat getXChange();
@@ -39,6 +43,10 @@ private:
 	GLfloat mueveLuz;
 	GLfloat direccionCarro;
 	GLboolean prendido;
+	GLfloat anguloLlantasD = 0.0f;
+	GLfloat anguloLlantasT = 0.0f;
+	GLfloat anguloCofre = 0.0f;
+	GLboolean lucesCarro;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
