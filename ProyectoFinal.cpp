@@ -333,7 +333,7 @@ int main()
 	Exveemon.LoadModel("Models/Exveemon.dae");
 
 	casaDigimon = Model();
-	casaDigimon.LoadModel("CasaDigimon/casaDigimon.obj");
+	casaDigimon.LoadModel("Models/casaDigimon.obj");
 
 	veemon = Model();
 	veemon.LoadModel("Models/veemon.obj");
@@ -416,20 +416,20 @@ int main()
 
 	unsigned int pointLightCount = 0;
 	//Declaración de primer luz puntual
-	pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
+	pointLights[0] = PointLight(1.0f, 1.0f, 1.0f,
 		1.0f, 1.0f,
-		-6.0f, 1.5f, 1.5f,
-		0.3f, 0.2f, 0.1f);
+		-165.0f, 0.0f, -100.0f,
+		0.5f, 0.2f, 0.1f);
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
 	
 
 	//luz fija
-	spotLights[0] = SpotLight(0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f,
-		5.0f, 10.0f, 0.0f,
-		0.0f, -5.0f, 0.0f,
+	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
+		0.3f, 0.0f,
+		0.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		15.0f);
 	spotLightCount++;
@@ -587,11 +587,11 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
-		// luz ligada a la cámara de tipo flash
-		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
-			glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.3f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+		//// luz ligada a la cámara de tipo flash
+		////sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
+		//	glm::vec3 lowerLight = camera.getCameraPosition();
+		//lowerLight.y -= 0.3f;
+		//spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
