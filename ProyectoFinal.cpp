@@ -418,8 +418,14 @@ int main()
 	//Declaración de primer luz puntual
 	pointLights[0] = PointLight(1.0f, 1.0f, 1.0f,
 		1.0f, 1.0f,
-		-165.0f, 0.0f, -100.0f,
-		0.5f, 0.2f, 0.1f);
+		-165.0f, 0.0f, -105.0f,
+		0.3f, 0.2f, 0.0f);
+	pointLightCount++;
+
+	pointLights[1] = PointLight(1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f,
+		-145.0f, 0.0f, -180.0f,
+		0.3f, 0.2f, 0.0f);
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
@@ -441,7 +447,7 @@ int main()
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 	
-	movCocheX = 3.0f;
+	movCocheX = 2.0f;
 	movCocheZ = -120.0f;
 	movOffset = 0.3f; //indica que esta iniciado el movimiento
 	avanzaX = true;
@@ -525,7 +531,7 @@ int main()
 
 		//Movimiento coche
 		if (avanzaX) {
-			if (movCocheX > -10.0f) {
+			if (movCocheX > 10.0f) {
 				movCocheX -= movOffset * deltaTime; 
 				rotacion = -90; 
 			}
@@ -1041,7 +1047,7 @@ int main()
 		//Taichi
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(180.0f, 0.0f, 120.0f));
+		model = glm::translate(model, glm::vec3(5.0 + camera.getCameraPosition().x, -15.0f + camera.getCameraPosition().y, camera.getCameraPosition().z));
 		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1105,6 +1111,159 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BaseAlamedaCentral.RenderModel();
 
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(100.0f, 0.0f, 240.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		arbol.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(240.0f, 0.0f, 100.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		arbol.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(50.0f, 0.0f, -200.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		arbol.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-200.0f, 0.0f, -100.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		arbol.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(68.0f, -0.0f, 300.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		bancaPicnic.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-190.0f, -0.0f, 70.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		bancaPicnic.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(100.0f, -0.0f, 100.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.0f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		baseBici.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(90.0f, -0.0f, -100.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.0f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		baseBici.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-150.0f, -0.0f, 100.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		carreta.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, -0.0f, 200.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		kiosko.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -210.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		kiosko.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(9.0f, -0.0f, 50.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-8.0f, -0.0f, 80.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(9.0f, -0.0f, 110.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-8.0f, -0.0f, 150.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(9.0f, -0.0f, -50.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-8.0f, -0.0f, -80.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(9.0f, -0.0f, -110.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-8.0f, -0.0f, -150.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		lamparaPoste.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(150.0f, -0.0f, 120.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		piedras.RenderModel();
+
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(5.0f, -0.0f, -160.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		triciclo.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(5.0f, -0.0f, 100.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		triciclo.RenderModel();
+
 		//_________________________________UNIVERSO FUTURAMA___________________________________
 		//Bender
 		model = modelaux;
@@ -1151,6 +1310,6 @@ int main()
 
 		mainWindow.swapBuffers();
 	}
-
+	
 	return 0;
 }
