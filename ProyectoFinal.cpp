@@ -74,6 +74,7 @@ Model kiosko;
 Model lamparaPoste;
 Model piedras;
 Model triciclo;
+Model planeta;
 
 //ALAMEDA
 Model BaseAlamedaCentral;
@@ -327,7 +328,10 @@ int main()
 
 	//Bote basura
 
+	//Planeta
 
+	planeta = Model();
+	planeta.LoadModel("Models/Crystals.fbx");
 
 	//ALAMEDA
 
@@ -664,8 +668,13 @@ int main()
 			glDisable(GL_BLEND);
 
 			tiempo += 1;
-
-
+			//
+			model = modelaux;
+			model = glm::translate(model, glm::vec3(0.0f, 50.0f, 0.0f));
+			//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+			model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			planeta.RenderModel();
 
 		}
 		if (tiempo >= 100 and tiempo < 200)
@@ -676,6 +685,13 @@ int main()
 			model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 			veemon.RenderModel();
+
+			model = modelaux;
+			model = glm::translate(model, glm::vec3(0.0f, 50.0f, 5.0f));
+			//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+			model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			planeta.RenderModel();
 
 
 			transformacion = false;
@@ -1351,6 +1367,9 @@ int main()
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		maquinaSoda.RenderModel();
+
+		
+
 
 
 
