@@ -85,6 +85,13 @@ Model digiEgg;
 Model Taichi;
 Model Exveemon;
 
+//UNIVERSO POKEMON 
+Model Charmander;
+Model Charizard;
+
+//OXXOS
+Model Oxxito;
+
 //UNIVERSO BATMAN
 Model batman;
 Model mansionBatman;
@@ -205,16 +212,16 @@ void CreateObjects()
 
 
 	};
-	
-	Mesh *obj1 = new Mesh();
+
+	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
@@ -231,7 +238,7 @@ void CreateObjects()
 
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -271,9 +278,9 @@ int main()
 	digiEggTexture = Texture("Textures/Courage_2.png");
 	digiEggTexture.LoadTextureA();
 
-	//-------------------------------------------------------MODELOS 
+	//-------------------------------------------------------MODELOS-------------------------------------------------------// 
 
-	//------------------------------------------------------- AMBIENTACIÓN
+	//------------------------------------------------------AMBIENTACIÓN--------------------------------------------------//
 
 	//Arbol
 
@@ -327,8 +334,9 @@ int main()
 	BaseAlamedaCentral = Model();
 	BaseAlamedaCentral.LoadModel("Models/BaseAlamedaCentral.obj");
 
-	//Exveemon
+	//-------------------------------------------------------UNIVERSO DIGIMON-------------------------------------------------------//
 
+	//Exveemon
 	Exveemon = Model();
 	Exveemon.LoadModel("Models/Exveemon.dae");
 
@@ -345,7 +353,20 @@ int main()
 	Taichi = Model();
 	Taichi.LoadModel("Models/ID00600_00000000out.dae");
 
-	//-------------------------------------------------------Universo batman
+	//-------------------------------------------------------UNIVERSO POKÉMON-------------------------------------------------------//
+	//Charmander
+	Charmander = Model();
+	Charmander.LoadModel("Models/UniversoPokemon/Charmander.obj");
+	//Charizard
+	Charizard = Model();
+	Charizard.LoadModel("Models/UniversoPokemon/Charizard.obj");
+
+
+	//OXXO
+	Oxxito = Model();
+	Oxxito.LoadModel("Models/OXXOS/oxxito.obj");
+
+	//-------------------------------------------------------UNIVERSO BATMAN-------------------------------------------------------//
 
 	batman = Model();
 	batman.LoadModel("Models/batman_obj.obj");
@@ -365,7 +386,7 @@ int main()
 	batiSenal = Model();
 	batiSenal.LoadModel("Models/batiSenal.obj");
 
-	//-------------------------------------------------------Universo futurama
+	//-------------------------------------------------------UNIVERSO FUTURAMA-------------------------------------------------------//
 	bender = Model();
 	bender.LoadModel("Models/bender.obj");
 
@@ -383,7 +404,7 @@ int main()
 
 	//Función para atardecer 
 
-	
+
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_rt.tga");
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_lf.tga");
@@ -391,7 +412,7 @@ int main()
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_up.tga");
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_ft.tga");
 	skyboxFaces.push_back("Textures/Skybox/ciudad2_bk.tga");
-	
+
 	skybox = Skybox(skyboxFaces);
 
 	std::vector<std::string> skyboxFaces2;
@@ -429,7 +450,7 @@ int main()
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
-	
+
 
 	//luz fija
 	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
@@ -439,14 +460,14 @@ int main()
 		1.0f, 0.0f, 0.0f,
 		15.0f);
 	spotLightCount++;
-	
+
 	//se crean mas luces puntuales y spotlight 
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-	
+
 	movCocheX = 2.0f;
 	movCocheZ = -120.0f;
 	movOffset = 0.3f; //indica que esta iniciado el movimiento
@@ -457,7 +478,7 @@ int main()
 	numGiros = 0;
 	luzdia = true;
 	luznoche = false;
-	
+
 
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -470,10 +491,10 @@ int main()
 		//luz{
 
 		if (luzdia) {
-			
+
 			if (luzgradual <= 1.0 and luzgradual > 0.0 and luznoche == false)
-			{	
-				
+			{
+
 				luzgradual -= 0.0005;
 				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -484,17 +505,17 @@ int main()
 				uniformView = shaderList[0].GetViewLocation();
 				uniformEyePosition = shaderList[0].GetEyePositionLocation();
 				uniformColor = shaderList[0].getColorLocation();
-				
-			}if(luzgradual < 0.2)
+
+			}if (luzgradual < 0.2)
 			{
 				luznoche = true;
 				luzgradual = 0.2;
-				
-				
+
+
 			}
 			if (luzgradual >= 0.2 and luzgradual < 1.0 and luznoche == true)
 			{
-				
+
 				luzgradual += 0.0005;
 				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -506,18 +527,18 @@ int main()
 				uniformEyePosition = shaderList[0].GetEyePositionLocation();
 				uniformColor = shaderList[0].getColorLocation();
 			}
-			if(luzgradual > 1.0)
+			if (luzgradual > 1.0)
 			{
 				luznoche = false;
 				luzgradual = 1.0;
-				
-				
+
+
 			}
-			
+
 			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 				luzgradual, luzgradual,
 				0.0f, 0.0f, -1.0f);
-			
+
 			//if (luzgradual >= 0.0 and luzgradual < 1)
 			//{
 			//	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -526,39 +547,39 @@ int main()
 			//	luzgradual += luzgradual + 0.5;
 			//}
 
-			
+
 		}
 
 		//Movimiento coche
 		if (avanzaX) {
 			if (movCocheX > 10.0f) {
-				movCocheX -= movOffset * deltaTime; 
-				rotacion = -90; 
+				movCocheX -= movOffset * deltaTime;
+				rotacion = -90;
 			}
 			else {
-				avanzaX = false; 
+				avanzaX = false;
 				avanzaZ = true;
 				numGiros++;
 			}
 		}
 		else if (avanzaZ) {
 			if (movCocheZ < 0.0f) {
-				movCocheZ += movOffset * deltaTime; 
-				rotacion = 0; 
+				movCocheZ += movOffset * deltaTime;
+				rotacion = 0;
 			}
 			else {
-				avanzaZ = false; 
+				avanzaZ = false;
 				avanzaX = true;
 				numGiros++;
 			}
 		}
 		else {
 			if (movCocheX < -70.0f) {
-				movCocheX += movOffset * deltaTime; 
-				rotacion = 90; 
+				movCocheX += movOffset * deltaTime;
+				rotacion = 90;
 			}
 			else {
-				avanzaX = true; 
+				avanzaX = true;
 				numGiros++;
 			}
 		}
@@ -567,7 +588,7 @@ int main()
 			avanzaX = false;
 			avanzaZ = false;
 		}
-	
+
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
@@ -584,7 +605,7 @@ int main()
 		//uniformView = shaderList[0].GetViewLocation();
 		//uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		//uniformColor = shaderList[0].getColorLocation();
-		
+
 		//información en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
@@ -631,7 +652,7 @@ int main()
 
 		if (transformacion)
 		{
-			
+
 			model = modelaux;
 			model = glm::translate(model, glm::vec3(175.0f, 0.0f, 90.0f));
 			model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -641,11 +662,11 @@ int main()
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			veemon.RenderModel();
 			glDisable(GL_BLEND);
-			
+
 			tiempo += 1;
 
-			
-			
+
+
 		}
 		if (tiempo >= 100 and tiempo < 200)
 		{
@@ -655,7 +676,7 @@ int main()
 			model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 			veemon.RenderModel();
-			
+
 
 			transformacion = false;
 
@@ -681,10 +702,10 @@ int main()
 			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 			Exveemon.RenderModel();
 
-			
+
 		}
-		
-		
+
+
 		//if (tiempo > 0 and tiempo <= 10 and transformacion == false)
 		//{
 		//	model = modelaux;
@@ -714,7 +735,7 @@ int main()
 		glDisable(GL_BLEND);
 		//Veemon
 
-		
+
 		//digiEgg
 
 		model = modelaux;
@@ -1057,8 +1078,30 @@ int main()
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Taichi.RenderModel();
+		//-------------------------------------------------------UNIVERSO POKÉMON------------------------------------------------------//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Charmander.RenderModel();
 
-		//_________________________________UNIVERSO BATMAN___________________________________
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, 11.0f, -40.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Charizard.RenderModel();
+
+		//-------------------------------------------------------OXXOS-----------------------------------------------------------------//
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-185.0f, 0.0f, -45.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Oxxito.RenderModel();
+		//-------------------------------------------------------UNIVERSO BATMAN-------------------------------------------------------//
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(-35.0f, 0.0f, -40.0f));
 		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1107,7 +1150,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		batiSenal.RenderModel();
 
-		//_________________________________Ambientación___________________________________
+		//-------------------------------------------------------AMBIENTACIÓN-------------------------------------------------------//
 
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.0f, -0.6f, 0.0f));
@@ -1221,7 +1264,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		lamparaPoste.RenderModel();
 
-		
+
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(9.0f, -0.0f, -50.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -1269,7 +1312,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		triciclo.RenderModel();
 
-		//_________________________________UNIVERSO FUTURAMA___________________________________
+		//-------------------------------------------------------UNIVERSO FUTURAMA-------------------------------------------------------//
 		//Bender
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 0.0f));
@@ -1309,12 +1352,12 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		maquinaSoda.RenderModel();
 
-		
+
 
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();
 	}
-	
+
 	return 0;
 }
