@@ -1,3 +1,6 @@
+//Proyecto Final Teoria
+//Becerril Olivar Axel Daniel
+//Rendon Hernandez Roberto Carlos
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <stdio.h>

@@ -160,8 +160,8 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh_tn.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="ProyectoFinal.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="ProyectoFinalTeo.cpp" />
     <ClCompile Include="Shader_light.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Sphere.cpp" />
