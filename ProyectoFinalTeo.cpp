@@ -1280,7 +1280,7 @@ int main()
 
 		model = modelaux;
 		//model = glm::translate(model, glm::vec3(-165.0f, 0.0f, -100.0f));
-		model = glm::translate(model, glm::vec3(-160 + movTriX, 0.0f, -100));
+		model = glm::translate(model, glm::vec3(-165.0f, 0.0f, -100));
 		model = glm::rotate(model, 145 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
