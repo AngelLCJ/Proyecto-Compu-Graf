@@ -38,11 +38,18 @@ const float toRadians = 3.14159265f / 180.0f;
 //variables para animación
 float movCocheX;
 float movCocheZ;
+float movTriX;
+float movTriZ;
 float movOffset; //bandera para detener el carro 
+float movOffset2;
 float rotllanta;
 float rotllantaOffset; //bandera para detener el carro 
 bool avanzaX; //indica si avanza o esta detenido el coche
 bool avanzaZ;
+bool avanzaX2; //indica si avanza o esta detenido el coche
+bool avanzaZ2;
+float rotacion2;
+int numGiros2;
 float rotacion;
 int numGiros;
 
@@ -79,6 +86,10 @@ Model piedras;
 Model triciclo;
 Model planeta;
 
+//Fauna
+Model paloma_M;
+Model ardilla_M;
+
 //ALAMEDA
 Model BaseAlamedaCentral;
 
@@ -105,11 +116,17 @@ Model batimovil;
 Model batiSenal;
 
 //UNIVERSO FUTURAMA
-Model bender;
+Model brazoDerecho_M;
+Model brazoIzquierdo_M;
+Model piernaDerecha_M;
+Model piernaIzquierda_M;
+Model cuerpoBender;
 Model casaFuturama;
 Model tiendaFuturama;
 Model naveFuturama;
 Model maquinaSoda;
+Model policiaRobot_M;
+Model policiaPatrulla_M;
 
 Skybox skybox;
 Skybox skyboxnoche;
@@ -341,6 +358,13 @@ int main()
 	BaseAlamedaCentral = Model();
 	BaseAlamedaCentral.LoadModel("Models/BaseAlamedaCentral.obj");
 
+	//Fauna
+	paloma_M = Model();
+	paloma_M.LoadModel("Models/paloma.obj");
+
+	ardilla_M = Model();
+	ardilla_M.LoadModel("Models/ardilla.obj");
+	
 	//-------------------------------------------------------UNIVERSO DIGIMON-------------------------------------------------------//
 
 	//Exveemon
@@ -394,8 +418,21 @@ int main()
 	batiSenal.LoadModel("Models/batiSenal.obj");
 
 	//-------------------------------------------------------UNIVERSO FUTURAMA-------------------------------------------------------//
-	bender = Model();
-	bender.LoadModel("Models/bender.obj");
+	cuerpoBender = Model();
+	cuerpoBender.LoadModel("Models/cuerpoBender.obj");
+
+	brazoIzquierdo_M = Model();
+	brazoIzquierdo_M.LoadModel("Models/brazoIzquierdo.obj");
+
+	brazoDerecho_M = Model();
+	brazoDerecho_M.LoadModel("Models/brazoDerecho.obj");
+
+	piernaIzquierda_M = Model();
+	piernaIzquierda_M.LoadModel("Models/piernaIzquierda.obj");
+
+	piernaDerecha_M = Model();
+	piernaDerecha_M.LoadModel("Models/piernaDerecha.obj");
+
 
 	casaFuturama = Model();
 	casaFuturama.LoadModel("Models/FuturamaCasaText.obj");
@@ -408,6 +445,12 @@ int main()
 
 	maquinaSoda = Model();
 	maquinaSoda.LoadModel("Models/SodaMachine.obj");
+
+	policiaRobot_M = Model();
+	policiaRobot_M.LoadModel("Models/policiaRobot.obj");
+
+	policiaPatrulla_M = Model();
+	policiaPatrulla_M.LoadModel("Models/policiaFuturama.obj");
 
 	//Función para atardecer 
 
@@ -456,6 +499,12 @@ int main()
 		0.3f, 0.2f, 0.0f);
 	pointLightCount++;
 
+	pointLights[2] = PointLight(1.0f, 1.0f, 0.0f,
+		0.6f, 0.6f,
+		-60.0f, 1.5f, -228.0f,
+		0.3f, 0.2f, 0.0f);
+	pointLightCount++;
+
 	unsigned int spotLightCount = 0;
 
 
@@ -477,15 +526,31 @@ int main()
 
 	movCocheX = 2.0f;
 	movCocheZ = -120.0f;
+	movTriX = -160.0f;
+	movTriZ = -100.0f;
 	movOffset = 0.3f; //indica que esta iniciado el movimiento
+	movOffset2 = 0.5f;
 	avanzaX = true;
 	avanzaZ = false;
 	rotacion = 0.0f;
-
+	avanzaX2 = true;
 	numGiros = 0;
 	luzdia = true;
 	luznoche = false;
 
+	float walkSpeed = 0.1f;  // Velocidad de la caminata
+	float picoteoSpeed = 3.0f;  // Reducir la velocidad del picoteo 
+	float picoteoAngle = glm::radians(10.0f);  // Ángulo máximo de picoteo
+	float deltaTime; // Tiempo transcurrido desde el último frame
+	GLfloat lastTime = glfwGetTime(); // Tiempo del último frame
+	float timeAngle = 0.0f; // Ángulo de tiempo para la animación
+	float hopSpeed = 1.0f; // Velocidad de salto
+	float moveDuration = 10.0f; // Duración de cada movimiento
+	float moveTimer = 0.0f; // Temporizador para el movimiento
+	glm::vec3 direction = glm::vec3(1.0f, 0.0f, 0.0f); // Dirección inicial
+	bool isPicoteando = false; // Estado de la paloma (picoteando o no)
+	float picoteoDuration = 20.0f; // Duración del picoteo
+	float picoteoTimer = 0.0f; // Temporizador para el picoteo
 
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -595,6 +660,80 @@ int main()
 			avanzaX = false;
 			avanzaZ = false;
 		}
+
+		// Actualizar el ángulo de tiempo para la animación
+		timeAngle += walkSpeed * deltaTime;
+
+		// Limitar el valor de timeAngle para evitar overflow
+		if (timeAngle > 2.0f * M_PI) {
+			timeAngle -= 2.0f * M_PI;
+		}
+
+		// Variables para el movimiento de las piernas y brazos
+
+		float legSwing = sin(timeAngle) * glm::radians(30.0f);  // Aumentar la oscilación de las piernas
+		float armSwing = -sin(timeAngle) * glm::radians(30.0f);  // Aumentar la oscilación de los brazos
+
+
+
+		// Lógica para determinar si la paloma debe picotear o avanzar
+		if (isPicoteando) {
+			picoteoTimer += deltaTime * 0.1f;
+			if (picoteoTimer > picoteoDuration) {
+				isPicoteando = false;
+				picoteoTimer = 0.0f;
+			}
+		}
+		else {
+
+			moveTimer += deltaTime;
+			if (moveTimer > moveDuration) {
+				direction.y = 0.1f;
+				direction.x += 0.01f;
+				direction.z += 0.01f;
+
+				moveTimer = 0.0f; // Reiniciar el temporizador
+
+				// Si ha avanzado lo suficiente, detenerse y comenzar a picotear
+				if (rand() % 100 <= 1) {  // Aproximadamente un 5% de probabilidad de detenerse para picotear
+					direction.x = direction.x - 0.01f;
+					direction.z = direction.z - 0.01f;
+					direction.y = 0.0f;
+					isPicoteando = true;
+					moveTimer = 0.0f;
+				}
+
+
+
+				/*if (direction.x >= 5.0f) {
+					direction.x = 5.0f;
+					direction.y = 0.0f;
+					isPicoteando = true;
+					moveTimer = 0.0f;
+				}*/
+			}
+		}
+
+		// Si está picoteando, calcular la animación de picoteo
+		if (isPicoteando) {
+			picoteoTimer += deltaTime * 0.1f;
+			if (picoteoTimer > picoteoDuration) {
+				isPicoteando = false;
+				picoteoTimer = 0.0f;
+			}
+			// Aquí puedes agregar la animación de picoteo
+		}
+
+		// Calcular la posición en el plano XZ y simular los brincos en el eje Y
+		float posX = direction.x * hopSpeed;
+		float posZ = direction.z * hopSpeed; // Mantener la posición en el plano XZ
+		float posY = direction.y * abs(sin(timeAngle + 0.5f));  // Brincos en el eje Y
+
+
+		// Calcular el ángulo de picoteo basado en una función seno para suavizar el movimiento
+		float picoteoTime = picoteoSpeed * timeAngle;
+		float headPitch = isPicoteando ? sin(picoteoTime) * picoteoAngle : 0.0f;  // Solo picotear si está en estado de picoteo
+		float headPitch1 = sin(picoteoTime) * picoteoAngle;
 
 
 		//Recibir eventos del usuario
@@ -1092,7 +1231,8 @@ int main()
 		//Taichi
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(5.0 + camera.getCameraPosition().x, -15.0f + camera.getCameraPosition().y, camera.getCameraPosition().z));
+		model = glm::translate(model, glm::vec3(100.0f, 0.0f, 50.0f));
+		//model = glm::translate(model, glm::vec3(5.0 + camera.getCameraPosition().x, -15.0f + camera.getCameraPosition().y, camera.getCameraPosition().z));
 		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1139,7 +1279,8 @@ int main()
 
 
 		model = modelaux;
-		model = glm::translate(model, glm::vec3(-165.0f, 0.0f, -100.0f));
+		//model = glm::translate(model, glm::vec3(-165.0f, 0.0f, -100.0f));
+		model = glm::translate(model, glm::vec3(-160 + movTriX, 0.0f, -100));
 		model = glm::rotate(model, 145 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1331,47 +1472,191 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		triciclo.RenderModel();
 
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(20.0f, 1.0f + posY, 6.0f + posZ * 15.0f)); // Aplicar traslación
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ardilla_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(60 + 0.0f, 1.0f + posY, 45.0f - posZ * 15.0f)); // Aplicar traslación
+		model = glm::rotate(model, 50.0f, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ardilla_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-60.0f + 10.0f * cos(posX), posY, -70.0f + 10.0f * sin(posZ))); // Aplicar traslación
+		model = glm::rotate(model, -50.0f - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ardilla_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(40.0f + 0.0f, 1.0f, 70.0f)); // Aplicar traslación
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ardilla_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-20.0f + 0.0f, 1.0f, 60.0f)); // Aplicar traslación
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ardilla_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(40.0f + 10.0f * cos(posX), posY, 40.0f + 10.0f * sin(posZ))); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-60.0f + 10.0f * cos(posX), posY, 40.0f + 10.0f * sin(posZ))); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-60.0f + 10.0f * cos(posX), posY, -35.0f + 10.0f * sin(posZ))); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-60.0f + 10.0f * cos(posX), posY, 70.0f + 10.0f * sin(posZ))); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(50.0f, 0.0f, 50.0f)); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(50.0f, 0.0f, 80.0f)); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-60.0f + 10.0f, posY, -30.0f + 10.0f * sin(posZ))); // Aplicar traslación
+		model = glm::rotate(model, 180 - direction.x, glm::vec3(0.0f, 1.0f, 0.0f)); // Aplicar rotación
+		model = glm::rotate(model, headPitch, glm::vec3(1.0f, 0.0f, 0.0f)); // Aplicar rotación de picoteo en el eje X
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		paloma_M.RenderModel();
+
 		//-------------------------------------------------------UNIVERSO FUTURAMA-------------------------------------------------------//
-		//Bender
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 100.0f));
-		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		// Renderizado de Bender con jerarquia
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(camera.getCameraPosition().x, -15.0f + camera.getCameraPosition().y, 10.0f + camera.getCameraPosition().z));
+		//model = glm::rotate(model, camera.getCameraPosition().y, glm::vec3(0.0f, 0.5f, 0.0f));
+		//model = glm::translate(model, glm::vec3(10.0f, 4.0f, 0.0f ));
+
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		bender.RenderModel();
+		modelaux = model;
+		cuerpoBender.RenderModel();
+
+		// Renderizar brazo derecho con oscilación
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-1.4f, 2.0f, 0.0f));
+		model = glm::rotate(model, armSwing, glm::vec3(1.0f, 0.0f, 0.0f));  // Rotación del brazo
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		brazoDerecho_M.RenderModel();
+
+		// Renderizar brazo izquierdo con oscilación
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(1.3f, 2.0f, 0.0f));
+		model = glm::rotate(model, -armSwing, glm::vec3(1.0f, 0.0f, 0.0f));  // Rotación del brazo
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		brazoIzquierdo_M.RenderModel();
+
+		// Renderizar pierna derecha con oscilación
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-0.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, legSwing, glm::vec3(1.0f, 0.0f, 0.0f));  // Rotación de la pierna
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		piernaDerecha_M.RenderModel();
+
+		// Renderizar pierna izquierda con oscilación
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, -legSwing, glm::vec3(1.0f, 0.0f, 0.0f));  // Rotación de la pierna
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		piernaIzquierda_M.RenderModel();
+
+		//model = glm::mat4(1.0f);
+		////model = modelaux;
+		//model = glm::translate(model, glm::vec3(-100.0f, 0.0f, 100.0f));
+		////model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//bender.RenderModel();
 
 		//Casa
-		model = modelaux;
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(160.0f, 0.0f, -280.0f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		casaFuturama.RenderModel();
+		//xxxxxxxxxxxxxxxxxxxxx
+		//Policia robot
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(140.0f, 0.0f, -280.0f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		policiaRobot_M.RenderModel();
+
+
+		//Patrulla
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(130.0f, 0.0f, -280.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		policiaPatrulla_M.RenderModel();
 
 		//tienda
-		model = modelaux;
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(170.0f, 0.0f, -160.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		tiendaFuturama.RenderModel();
 
 		//nave
-		model = modelaux;
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(120.0f, 0.0f, -50.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		naveFuturama.RenderModel();
 
-		model = modelaux;
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(150.0f, 0.0f, -60.0f));
 		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		maquinaSoda.RenderModel();
-
-		
-
 
 
 
