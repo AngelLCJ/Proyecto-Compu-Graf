@@ -85,6 +85,8 @@ Model lamparaPoste;
 Model piedras;
 Model triciclo;
 Model planeta;
+Model pinkTree;
+Model tronco;
 
 //Fauna
 Model paloma_M;
@@ -343,10 +345,13 @@ int main()
 	triciclo = Model();
 	triciclo.LoadModel("Models/Triciclo.obj");
 
-	//Banca
+	//Arbol rosa
+	pinkTree = Model();
+	pinkTree.LoadModel("Models/arbolRosa3.obj");
 
-
-	//Bote basura
+	//Tronco
+	tronco = Model();
+	tronco.LoadModel("Models/tronco.obj");
 
 	//Planeta
 
@@ -1559,6 +1564,50 @@ int main()
 		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		paloma_M.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(140.0f, -0.0f, 30.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinkTree.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-140.0f, -0.0f, 50.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinkTree.RenderModel();
+
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(100.0f, -0.0f, -150.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinkTree.RenderModel();
+
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(190.0f, -0.0f, -20.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tronco.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-190.0f, -0.0f, 100.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tronco.RenderModel();
+
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-100.0f, -0.0f, 190.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getanguloCofre()), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tronco.RenderModel();
 
 		//-------------------------------------------------------UNIVERSO FUTURAMA-------------------------------------------------------//
 		// Renderizado de Bender con jerarquia
